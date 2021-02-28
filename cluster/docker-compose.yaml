@@ -1,0 +1,77 @@
+version: "3.7"
+
+services:
+  master1:
+    image: redis:6.2
+    networks:
+      my-cluster-net:
+        ipv4_address: 172.16.238.10
+    environment:
+      - TZ=Asia/Shanghai
+    command: /usr/local/bin/redis-server  /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+
+  master2:
+    image: redis:6.2
+    networks:
+      my-cluster-net:
+        ipv4_address: 172.16.238.11
+    environment:
+      - TZ=Asia/Shanghai
+    command: /usr/local/bin/redis-server  /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+
+  master3:
+    image: redis:6.2
+    networks:
+      my-cluster-net:
+        ipv4_address: 172.16.238.12
+    environment:
+      - TZ=Asia/Shanghai
+    command: /usr/local/bin/redis-server  /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+
+  slave1:
+    image: redis:6.2
+    networks:
+      my-cluster-net:
+        ipv4_address: 172.16.238.13
+    environment:
+      - TZ=Asia/Shanghai
+    command: /usr/local/bin/redis-server  /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+
+
+  slave2:
+    image: redis:6.2
+    networks:
+      my-cluster-net:
+        ipv4_address: 172.16.238.14
+    environment:
+      - TZ=Asia/Shanghai
+    command: /usr/local/bin/redis-server  /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+
+
+  slave3:
+    image: redis:6.2
+    networks:
+      my-cluster-net:
+        ipv4_address: 172.16.238.15
+    environment:
+      - TZ=Asia/Shanghai
+    command: /usr/local/bin/redis-server  /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+
+
+networks:
+  my-cluster-net:
+    ipam:
+      config:
+        - subnet: 172.16.238.0/24
