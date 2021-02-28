@@ -53,5 +53,3 @@
 
 结果类似即搭建成功
 
-
-PS： 执行 `docker-compose stop master` 子集群还能响应，但是没法
