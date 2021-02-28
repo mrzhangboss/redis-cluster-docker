@@ -1,0 +1,65 @@
+version: "3.7"
+
+services:
+  master:
+    image: redis:5
+    hostname: master
+    environment:
+      - TZ=Asia/Shanghai
+
+  slave1:
+    image: redis:5
+    hostname: slave1
+    depends_on:
+      - master
+    environment:
+      - TZ=Asia/Shanghai
+    command: redis-server  /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+
+
+  slave2:
+    image: redis:5
+    hostname: slave2
+    depends_on:
+      - master
+    environment:
+      - TZ=Asia/Shanghai
+    command: redis-server  /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+
+
+  sentinel1:
+    image: redis:5
+    hostname: sentinel1
+    depends_on:
+      - master
+    environment:
+      - TZ=Asia/Shanghai
+    command: redis-sentinel  /tmp/sentinel.conf
+    volumes:
+      - ./sentinel.conf:/tmp/sentinel.conf
+
+  sentinel2:
+    image: redis:5
+    hostname: sentinel2
+    depends_on:
+      - master
+    environment:
+      - TZ=Asia/Shanghai
+    command: redis-sentinel  /usr/local/etc/redis/sentinel.conf
+    volumes:
+      - ./sentinel.conf:/usr/local/etc/redis/sentinel.conf
+
+  sentinel3:
+    image: redis:5
+    hostname: sentinel3
+    depends_on:
+      - master
+    environment:
+      - TZ=Asia/Shanghai
+    command: redis-sentinel  /usr/local/etc/redis/sentinel.conf
+    volumes:
+      - ./sentinel.conf:/usr/local/etc/redis/sentinel.conf

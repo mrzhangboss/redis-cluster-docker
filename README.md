@@ -1,6 +1,6 @@
 # Redis 集群 搭建
 
-> 基于 Redis6.2
+> 主从模式基于 Redis6.2, 哨兵模式基于Redis5
 
 
 [主从模式](master/README.md)
