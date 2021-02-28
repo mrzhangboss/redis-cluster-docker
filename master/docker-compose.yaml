@@ -1,0 +1,31 @@
+version: "3.7"
+
+services:
+  master:
+    image: redis:6.2
+    hostname: master
+    environment:
+      - TZ=Asia/Shanghai
+
+  slave1:
+    image: redis:6.2
+    hostname: slave1
+    depends_on:
+      - master
+    environment:
+      - TZ=Asia/Shanghai
+    command: redis-server  /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+
+
+  slave2:
+    image: redis:6.2
+    hostname: slave2
+    depends_on:
+      - master
+    environment:
+      - TZ=Asia/Shanghai
+    command: redis-server  /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
